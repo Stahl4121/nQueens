@@ -26,9 +26,9 @@ public class nQueenBoard {
     public boolean isCollision(int i, int j) {
         int iQ = queens[i]; // y index for the ith Queen
         int jQ = queens[j]; // y index for the jth Queen
-        int qDist = abs(iQ - jQ);  // y distance between the two queens
+        int qDist = Math.abs(iQ - jQ);  // y distance between the two queens
         // if they are on the same row or diagonal there is a collision
-        if(qDist == 0 || qDist == abs(j - i)) {
+        if(qDist == 0 || qDist == Math.abs(j - i)) {
             return true;
         }
         else {
@@ -36,7 +36,7 @@ public class nQueenBoard {
         }
     }
 
-    public getCollisions() {
+    public int getCollisions() {
         this.nCollisions = 0;
         for(int i = 0; i < n; i++) {
             for(int j = i; j < n; j++) {
@@ -47,5 +47,6 @@ public class nQueenBoard {
                 }
             }
         }
+        return nCollisions;
     }
 }
