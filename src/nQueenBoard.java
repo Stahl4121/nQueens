@@ -14,13 +14,16 @@ public class nQueenBoard {
         this.nCollisions = 0;
 
         // need to initialize queens
-
-        /////////////////////////////
-        ///////////////////////////////
-        /////////////////////////////
+        for(int i = 0; i < n; i++) {
+        	queens[i] = i;
+        }
 
         // then run getCollisions
         getCollisions();
+    }
+    
+    public void editBoard(int row, int column) {
+    	queens[row] = column;
     }
 
     public boolean isCollision(int i, int j) {
@@ -39,7 +42,7 @@ public class nQueenBoard {
     public int getCollisions() {
         this.nCollisions = 0;
         for(int i = 0; i < n; i++) {
-            for(int j = i; j < n; j++) {
+            for(int j = i + 1; j < n; j++) {
                 if(isCollision(i, j)) {
                     collisions[i] = true;
                     nCollisions++;
@@ -48,5 +51,13 @@ public class nQueenBoard {
             }
         }
         return nCollisions;
+    }
+    
+    public int getN() {
+    	return n;
+    }
+    
+    public int getQueenAt(int i) {
+    	return queens[i];
     }
 }
