@@ -19,7 +19,7 @@ public class nQueenBoard {
 
         // need to initialize queens
         for(int i = 0; i < size; i++) {
-        	queens[i] = i;
+        	queens[i] = 0;
         }
         
         checkCollisions();

@@ -13,12 +13,12 @@ public class Driver_nQueens {
 		nQueenBoard n = new nQueenBoard(nQueens);
 		
 		long startTime = System.nanoTime();
-		SearchAlgorithms.DFS(n,0);
+		DFSAlgorithms.DFS(n,0);
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
 		
-		System.out.println("\nDFS time: " + duration/1000000000.0 );
-		System.out.println("DFS was called " + SearchAlgorithms.numDFS+ " times.\n");
+		System.out.println("DFS time: " + duration/1000000000.0 );
+		System.out.println("DFS was called " + DFSAlgorithms.numDFS+ " times.\n");
 	}
 	
 	/**
@@ -28,12 +28,12 @@ public class Driver_nQueens {
 		nQueenBoard n1 = new nQueenBoard(nQueens);
 		
 		long startTime = System.nanoTime();
-		SearchAlgorithms.optimizedDFS(n1,0);
+		DFSAlgorithms.optimizedDFS(n1,0);
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
 		
 		System.out.println("Optimized DFS time: " + duration/1000000000.0);
-		System.out.println("Optimized DFS was called " + SearchAlgorithms.numOptimizedDFS + " times.\n");
+		System.out.println("Optimized DFS was called " + DFSAlgorithms.numOptimizedDFS + " times.\n");
 	}
 	
 	/**

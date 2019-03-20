@@ -4,7 +4,7 @@
  * @authors Sarah Calvis, Logan Stahl, Miriam Tan
  *
  */
-public class SearchAlgorithms {
+public class DFSAlgorithms {
 	public static int numDFS = 0;
 	public static int numOptimizedDFS = 0;
 	
@@ -15,11 +15,10 @@ public class SearchAlgorithms {
 	 * @return
 	 */
 	public static boolean DFS(nQueenBoard board, int depth) {
-		
 		numDFS++;
 		
 		if(board.getCollisions() == 0) {
-			System.out.println("Solution found using DFS: ");
+			System.out.println("\nSolution found using DFS: ");
 			
 			for(int i = 0; i < board.getSize(); i++) {
 				System.out.print(board.getQueenAt(i) + " ");
@@ -35,9 +34,8 @@ public class SearchAlgorithms {
 		}
 		else {
 			for (int i = 0; i < board.getSize(); i++) {
-				board.editBoard(depth, i);
-				
-				if (DFS(board, depth+1)) {
+				nQueenBoard b = new nQueenBoard(board, depth, i);
+				if (DFS(b, depth+1)) {
 					return true;
 				}
 			}
@@ -80,9 +78,8 @@ public class SearchAlgorithms {
 		}
 		else {
 			for (int i = 0; i < board.getSize(); i++) {
-				board.editBoard(depth, i);
-				
-				if (optimizedDFS(board, depth+1)) {
+				nQueenBoard b = new nQueenBoard(board, depth, i);
+				if (optimizedDFS(b, depth+1)) {
 					return true;
 				}
 			}
