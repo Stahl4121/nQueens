@@ -5,9 +5,8 @@
  *
  */
 public class nQueenBoard {
-    private int n;  				// keeps track of the size of the board/number of queens
+    private int size;  				// keeps track of the size of the board/number of queens
     private int[] queens;   		// the ith queen is at location [i][queens[i]] on the board
-    private boolean[] collisions;	// this tracks if the ith queen is in a collision
     private int nCollisions;   		// this track total number of collisions
 
     /** constructor: takes boardsize/numQueens
@@ -15,42 +14,47 @@ public class nQueenBoard {
      * @param numQueens
      */
     public nQueenBoard(int numQueens) {
-        this.n = numQueens;
+        this.size = numQueens;
         this.queens = new int[numQueens];
-        this.collisions = new boolean[numQueens];
-        this.nCollisions = 0;
 
         // need to initialize queens
-        for(int i = 0; i < n; i++) {
+        for(int i = 0; i < size; i++) {
         	queens[i] = i;
         }
+        
+        checkCollisions();
+    }
+    
+    /** constructor: takes boardsize/numQueens
+     * 
+     * @param numQueens
+     */
+    public nQueenBoard(nQueenBoard oldBoard, int row, int column) {
+        this.size = oldBoard.size;
+        this.queens = new int[size];
 
-        // then run getCollisions
-        getCollisions();
+        // need to initialize queens
+        for(int i = 0; i < size; i++) {
+        	this.queens[i] = oldBoard.queens[i];
+        }
+        
+    	queens[row] = column;
+        
+        checkCollisions();
     }
     
     /**
      * 
-     * @param row
-     * @param column
-     */
-    public void editBoard(int row, int column) {
-    	queens[row] = column;
-    }
-
-    /**
-     * 
-     * @param i
-     * @param j
+     * @param q1
+     * @param q2
      * @return
      */
-    public boolean isCollision(int i, int j) {
-        int iQ = queens[i]; // y index for the ith Queen
-        int jQ = queens[j]; // y index for the jth Queen
-        int qDist = Math.abs(iQ - jQ);  // y distance between the two queens
+    public boolean isCollision(int q1, int q2) {
+        int colDist = Math.abs(queens[q1] - queens[q2]);  // col distance between the two queens
+        int rowDist = Math.abs(q1 - q2);  				  // row distance between the two queens
         
-        // if they are on the same row or diagonal there is a collision
-        if(qDist == 0 || qDist == Math.abs(j - i)) {
+        // If in same column or diagonal there is a collision
+        if(colDist == 0 || colDist == rowDist) {
             return true;
         }
         else {
@@ -62,20 +66,24 @@ public class nQueenBoard {
      * 
      * @return
      */
-    public int getCollisions() {
-        this.nCollisions = 0;
+    public void checkCollisions() {
+        nCollisions = 0;
         
-        for(int i = 0; i < n; i++) {
-            for(int j = i + 1; j < n; j++) {
-                if(isCollision(i, j)) {
-                    collisions[i] = true;
+        for(int q1 = 0; q1 < size; q1++) {
+            for(int q2 = q1 + 1; q2 < size; q2++) {
+                if(isCollision(q1, q2)) {
                     nCollisions++;
-                    break;  // as soon as you find a collision for a queen move to the next queen
                 }
             }
         }
-        
-        return nCollisions;
+    }
+    
+    /**
+     * 
+     * @return member variable nCollisions
+     */
+    public int getCollisions() {
+    	return nCollisions;
     }
     
     /**
@@ -84,29 +92,24 @@ public class nQueenBoard {
      * @param d
      * @return
      */
-    public int collisionsAtDepth(int d) {
-        this.nCollisions = 0;
-        
+    public boolean hasCollisionsUpToDepth(int d) {
         for(int i = 0; i < d; i++) {
             for(int j = i + 1; j < d; j++) {
                 if(isCollision(i, j)) {
-                    collisions[i] = true;
-                    nCollisions++;
-                    
-                    break;  // as soon as you find a collision for a queen move to the next queen
+                    return true;
                 }
             }
         }
         
-        return nCollisions;
+        return false;
     }
     
     /**
      * 
-     * @return
+     * @return size o board
      */
-    public int getN() {
-    	return n;
+    public int getSize() {
+    	return size;
     }
     
     /**
