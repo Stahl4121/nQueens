@@ -15,7 +15,7 @@ public class Main {
 		DFS(n,0);
 		long endTime = System.nanoTime();
 		long duration = (endTime - startTime);
-		System.out.println("\nDFS time: " + duration/1000000000.0 );
+		System.out.println("DFS time: " + duration/1000000000.0 );
 		System.out.println("Number of times DFS was called " + numDFS+ "\n");
 		
 		//Run Optimized DFS
@@ -30,7 +30,7 @@ public class Main {
 	public static boolean DFS(nQueenBoard n, int depth) {
 		numDFS++;
 		if(n.getCollisions() == 0) {
-			System.out.println("DFS found solution");
+			System.out.println("\nDFS found solution");
 			for(int i = 0; i < n.getN(); i++) {
 				System.out.print(n.getQueenAt(i) + " ");
 			}
