@@ -1,12 +1,19 @@
 
-
+/**
+ * 
+ * @authors Sarah Calvis, Logan Stahl, Miriam Tan
+ *
+ */
 public class nQueenBoard {
-    private int n;  // keeps track of the size of the board/number of queens
-    private int[] queens;   // the ith queen is at location [i][queens[i]] on the board
-    private boolean[] collisions;  // this tracks if the ith queen is in a collision
-    private int nCollisions;    // this track total number of collisions
+    private int n;  				// keeps track of the size of the board/number of queens
+    private int[] queens;   		// the ith queen is at location [i][queens[i]] on the board
+    private boolean[] collisions;	// this tracks if the ith queen is in a collision
+    private int nCollisions;   		// this track total number of collisions
 
-    // constructor: takes boardsize/numQueens
+    /** constructor: takes boardsize/numQueens
+     * 
+     * @param numQueens
+     */
     public nQueenBoard(int numQueens) {
         this.n = numQueens;
         this.queens = new int[numQueens];
@@ -22,14 +29,26 @@ public class nQueenBoard {
         getCollisions();
     }
     
+    /**
+     * 
+     * @param row
+     * @param column
+     */
     public void editBoard(int row, int column) {
     	queens[row] = column;
     }
 
+    /**
+     * 
+     * @param i
+     * @param j
+     * @return
+     */
     public boolean isCollision(int i, int j) {
         int iQ = queens[i]; // y index for the ith Queen
         int jQ = queens[j]; // y index for the jth Queen
         int qDist = Math.abs(iQ - jQ);  // y distance between the two queens
+        
         // if they are on the same row or diagonal there is a collision
         if(qDist == 0 || qDist == Math.abs(j - i)) {
             return true;
@@ -39,8 +58,13 @@ public class nQueenBoard {
         }
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getCollisions() {
         this.nCollisions = 0;
+        
         for(int i = 0; i < n; i++) {
             for(int j = i + 1; j < n; j++) {
                 if(isCollision(i, j)) {
@@ -50,28 +74,46 @@ public class nQueenBoard {
                 }
             }
         }
+        
         return nCollisions;
     }
     
-    //this method only gets collisions up to depth 1
+    /**
+     * this method only gets collisions up to depth d
+     * 
+     * @param d
+     * @return
+     */
     public int collisionsAtDepth(int d) {
         this.nCollisions = 0;
+        
         for(int i = 0; i < d; i++) {
             for(int j = i + 1; j < d; j++) {
                 if(isCollision(i, j)) {
                     collisions[i] = true;
                     nCollisions++;
+                    
                     break;  // as soon as you find a collision for a queen move to the next queen
                 }
             }
         }
+        
         return nCollisions;
     }
     
+    /**
+     * 
+     * @return
+     */
     public int getN() {
     	return n;
     }
     
+    /**
+     * 
+     * @param i
+     * @return
+     */
     public int getQueenAt(int i) {
     	return queens[i];
     }
