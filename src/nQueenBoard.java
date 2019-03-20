@@ -53,6 +53,21 @@ public class nQueenBoard {
         return nCollisions;
     }
     
+    //this method only gets collisions up to depth 1
+    public int collisionsAtDepth(int d) {
+        this.nCollisions = 0;
+        for(int i = 0; i < d; i++) {
+            for(int j = i + 1; j < d; j++) {
+                if(isCollision(i, j)) {
+                    collisions[i] = true;
+                    nCollisions++;
+                    break;  // as soon as you find a collision for a queen move to the next queen
+                }
+            }
+        }
+        return nCollisions;
+    }
+    
     public int getN() {
     	return n;
     }
