@@ -30,10 +30,7 @@ public class DFSAlgorithms {
 
 		if(board.getCollisions() == 0) {
 			System.out.println("\nSolution found using DFS: ");
-
-			for(int i = 0; i < board.getSize(); i++) {
-				System.out.print(board.getQueenAt(i) + " ");
-			}
+			System.out.println(board.toString());
 
 			System.out.println();
 
@@ -66,11 +63,8 @@ public class DFSAlgorithms {
 		numNodes++;
 
 		if(board.getCollisions() == 0) {
-			System.out.println("Backtracking DFS found solution");
-			for(int i = 0; i < board.getSize(); i++) {
-				System.out.print(board.getQueenAt(i) + " ");
-			}
-			System.out.println();
+			System.out.println("Backtracking DFS found solution.");
+			System.out.println(board.toString());
 			return true;
 		}
 
@@ -126,9 +120,8 @@ public class DFSAlgorithms {
 
 		if(board.getCollisions() == 0) {
 			System.out.println("Backtracking DFS found solution");
-			for(int i = 0; i < board.getSize(); i++) {
-				System.out.print(board.getQueenAt(i) + " ");
-			}
+			System.out.println(board.toString());
+
 			System.out.println();
 			return true;
 		}

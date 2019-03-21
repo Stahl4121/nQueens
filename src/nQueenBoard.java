@@ -1,5 +1,7 @@
 
 /**
+ * This is the class for managing a board for the n-queens problem.
+ * It is used for our DFS algorithm, DFS with Backtracking algorithm, and Local Search with Random Restart.
  * 
  * @authors Sarah Calvis, Logan Stahl, Miriam Tan
  *
@@ -7,16 +9,16 @@
 public class nQueenBoard {
     private int size;  					// keeps track of the size of the board/number of queens
     private int[] queens;   			// the ith queen is at location [i][queens[i]] on the board
-    private int[][] availPositions;   	// Tracks valid positions of the available positions for forward checking
     private int nCollisions;   			// this track total number of collisions
 
-    /** constructor: takes boardsize/numQueens
+    /** Constructor which initializes an nQueens
+     *  board with queens placed in the first column.
      * 
-     * @param numQueens
+     * @param numQueens the dimension of the board
      */
     public nQueenBoard(int numQueens) {
         this.size = numQueens;
-        this.queens = new int[numQueens];
+        this.queens = new int[size];
 
         // need to initialize queens
         for(int i = 0; i < size; i++) {
@@ -26,9 +28,12 @@ public class nQueenBoard {
         checkCollisions();
     }
     
-    /** constructor: takes boardsize/numQueens
+    /** Copy constructor which modifies one location in
+     * the new board. Used for backtracking DFS and DFS.
      * 
-     * @param numQueens
+     * @param oldBoard	the board to be copied
+     * @param row		the row of the queen that will be moved
+     * @param column	the new column location to move the queen
      */
     public nQueenBoard(nQueenBoard oldBoard, int row, int column) {
         this.size = oldBoard.size;
@@ -45,10 +50,11 @@ public class nQueenBoard {
     }
     
     /**
+     * Checks if the locations of two queens indicates a collision.
      * 
-     * @param q1
-     * @param q2
-     * @return
+     * @param q1 the first queen
+     * @param q2 the second queen
+     * @return	true if the two queens can attack each other
      */
     public boolean isCollision(int q1, int q2) {
         int colDist = Math.abs(queens[q1] - queens[q2]);  // col distance between the two queens
@@ -64,8 +70,8 @@ public class nQueenBoard {
     }
 
     /**
-     * 
-     * @return
+     *  Calculates the number of queen collisions on the board
+     *  and stores it in a private member variable.
      */
     public void checkCollisions() {
         nCollisions = 0;
@@ -80,6 +86,7 @@ public class nQueenBoard {
     }
     
     /**
+     * Getter for nCollisions
      * 
      * @return member variable nCollisions
      */
@@ -88,10 +95,11 @@ public class nQueenBoard {
     }
     
     /**
-     * this method only gets collisions up to depth d
+     * this method returns true if there are collisions up to depth d
+     * allows partial checking of the board for backtracking constraint satisfiability
      * 
-     * @param d
-     * @return
+     * @param d 	the max depth to check the board
+     * @return 		boolean of if there is at least one collision
      */
     public boolean hasCollisionsUpToDepth(int d) {
         for(int q1 = 0; q1 < d; q1++) {
@@ -106,19 +114,54 @@ public class nQueenBoard {
     }
     
     /**
+     * Creates a string with the coordinates of the queens on the board 
+     * and the board itself, represented with Q for queen, X for empty.
      * 
-     * @return size o board
+     * @return string of the queen's coords and the board
      */
-    public int getSize() {
-    	return size;
+    public String toString() {
+    	StringBuilder sb = new StringBuilder();
+
+		sb.append("-------------------------------------------------\n");
+		
+		sb.append("COORDS: ");
+		
+    	//Print the ordered pair coordinates of the solution
+		for(int i = 0; i < size; i++) {
+			sb.append("(" + i + ", " + queens[i] + ")");
+			
+			if(i != size-1) {
+				sb.append(", ");
+			}
+		}
+		sb.append("\n");
+
+		
+		//Print the board graphically, Q for queen, X for empty
+		for(int i = 0; i < size; i++) {
+			sb.append("\n");
+			
+			for(int j = 0; j < size; j++) {
+				if(queens[i] == j) {
+					sb.append("Q ");
+				}
+				else {
+					sb.append("X ");
+				}
+			}
+		}
+		
+		sb.append("\n\n-------------------------------------------------");
+		
+		return sb.toString();
     }
     
     /**
+     * Getter for private member variable size
      * 
-     * @param i
-     * @return
+     * @return size, the board dimension
      */
-    public int getQueenAt(int i) {
-    	return queens[i];
+    public int getSize() {
+    	return size;
     }
 }
