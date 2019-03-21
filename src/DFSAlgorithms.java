@@ -8,10 +8,7 @@
  */
 public class DFSAlgorithms {
 	private int numNodes = 0;
-	
-	//-----------------------------
-	//TODO: Move numNodes into method parameter, and print along with solutions
-	
+
 	/**
 	 * Getter for member variable numNodes
 	 * 
@@ -38,7 +35,7 @@ public class DFSAlgorithms {
 		//Check if the board is a solution
 		//If so, print the solution.
 		if(board.getCollisions() == 0) {
-			System.out.println("\nSolution found using DFS: ");
+			System.out.println("DFS found a solution:");
 			System.out.println(board.toString());
 			return true;
 		}
@@ -48,20 +45,20 @@ public class DFSAlgorithms {
 		if (depth == board.getSize()) {
 			return false;
 		}
-		else {
-			//Loop through all positions of a queen at a given depth
-			for (int i = 0; i < board.getSize(); i++) {
-				//Create a new board modified at one position
-				nQueenBoard b = new nQueenBoard(board, depth, i);
-				
-				//Expand the node with a recursive call
-				if (DFS(b, depth+1)) {
-					return true;
-				}
-			}
 
-			return false;
+		//Loop through all positions of a queen at a given depth
+		for (int c = 0; c < board.getSize(); c++) {
+			//Create a new board and modify it at one position
+			nQueenBoard b = new nQueenBoard(board);
+			b.editBoard(depth, c);
+
+			//Expand the node with a recursive call
+			if (DFS(b, depth+1)) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 
 
@@ -84,7 +81,7 @@ public class DFSAlgorithms {
 		//Check if the board is a solution
 		//If so, print the solution.
 		if(board.getCollisions() == 0) {
-			System.out.println("Backtracking DFS found solution.");
+			System.out.println("Backtracking DFS found a solution:");
 			System.out.println(board.toString());
 			return true;
 		}
@@ -94,24 +91,24 @@ public class DFSAlgorithms {
 		if (depth == board.getSize()) {
 			return false;
 		}
-		else {
-			//Loop through all positions of a queen at a given depth
-			for (int i = 0; i < board.getSize(); i++) {
-				//Create a new board modified at one position
-				nQueenBoard b = new nQueenBoard(board, depth, i);
 
-				//This outer-if is the backtracking
-				//Only expand the node if the choice currently satisfies constraints
-				if (!b.hasCollisionsUpToDepth(depth + 1)) {
-					//Expand the node with a recursive call
-					if (btDFS(b, depth+1)) {
-						return true;
-					}
+		//Loop through all positions of a queen at a given depth
+		for (int c = 0; c < board.getSize(); c++) {
+			//Create a new board and modify it at one position
+			nQueenBoard b = new nQueenBoard(board);
+			b.editBoard(depth, c);
+
+			//This outer-if is the backtracking
+			//Only expand the node if the choice currently satisfies constraints
+			if (!b.hasCollisionsUpToDepth(depth)) {
+				//Expand the node with a recursive call
+				if (btDFS(b, depth+1)) {
+					return true;
 				}
 			}
-
-			return false;
 		}
+
+		return false;
 	}
 
 
@@ -127,56 +124,37 @@ public class DFSAlgorithms {
 	 * @param 	depth   the current depth of the board being searched
 	 * @return	true,	if a solution has been found
 	 */
-	public boolean fcDFS(nQueenBoard board, int depth) {
+	public boolean fcDFS(nQueenBoardFC board, int depth) {
 
 		numNodes++;
-		
-		//Check if any rows are all false
-		//		return false;
-		
-		//Check if depth == size of board
-		//		print board;
-		//		print stats;
-		//		return true;
-		
-		//for(col in available in current depth)
-		//		if col == true
-		//			//Copy availPositions 2D array
-					//Reduce constraints in array
-					//if(FC())
-						//Return true
-		//Done
-					
-		
-		
-		
-		
 
-		if(board.getCollisions() == 0) {
-			System.out.println("Backtracking DFS found solution");
+		//If the board had no empty domains (and so was expanded)
+		//and is at it's max depth, then it must be a solution
+		if(depth == board.getSize()) {
+			System.out.println("Forward Checking DFS found a solution:");
 			System.out.println(board.toString());
-
-			System.out.println();
 			return true;
 		}
 
+		//Loop through all positions of a queen at a given depth
+		for(int c = 0; c < board.getSize(); c++) {
+			//Check if position is in the domain
+			if(board.isPosValid(depth,c)) {
+				
+				//Copy the current board and reduce its domain
+				nQueenBoardFC b = new nQueenBoardFC(board);
+				b.reduceDomain(depth, c);
 
-		if (depth == board.getSize()) {
-			return false;
-		}
-		else {
-			for (int i = 0; i < board.getSize(); i++) {
-				nQueenBoard b = new nQueenBoard(board, depth, i);
-
-				if (!b.hasCollisionsUpToDepth(depth + 1)) {
-					if (btDFS(b, depth+1)) {
+				//Only expand the node if the board does not have any empty domains
+				if(!b.hasEmptyDomain(depth)) {
+					if(fcDFS(b, depth+1)){
 						return true;
 					}
 				}
 			}
-
-			return false;
 		}
+
+		return false;
 	}
 
 }

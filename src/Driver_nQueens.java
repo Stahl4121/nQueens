@@ -48,7 +48,7 @@ public class Driver_nQueens {
 	 * Runs and records elapsed time for the DFS with Forward Checking algorithm.
 	 */
 	public static void runFCDFS(int nQueens) {
-		nQueenBoard n = new nQueenBoard(nQueens);
+		nQueenBoardFC n = new nQueenBoardFC(nQueens);
 		DFSAlgorithms fcDFSRun = new DFSAlgorithms();
 
 		long startTime = System.nanoTime();

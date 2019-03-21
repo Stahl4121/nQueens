@@ -28,24 +28,32 @@ public class nQueenBoard {
         checkCollisions();
     }
     
-    /** Copy constructor which modifies one location in
-     * the new board. Used for backtracking DFS and DFS.
+    /** Copy constructor
      * 
      * @param oldBoard	the board to be copied
-     * @param row		the row of the queen that will be moved
-     * @param column	the new column location to move the queen
      */
-    public nQueenBoard(nQueenBoard oldBoard, int row, int column) {
+    public nQueenBoard(nQueenBoard oldBoard) {
         this.size = oldBoard.size;
         this.queens = new int[size];
+        this.nCollisions = oldBoard.getCollisions();
 
         // need to initialize queens
         for(int i = 0; i < size; i++) {
         	this.queens[i] = oldBoard.queens[i];
         }
+    }
+    
+    /**
+     * Modifies one location in the new board. 
+     * Used for backtracking DFS and DFS.
+     * @param row		the row of the queen that will be moved
+     * @param col		the new column location to move the queen
+     */
+    public void editBoard(int row, int col) {
+    	//Move the queen
+    	queens[row] = col;
         
-    	queens[row] = column;
-        
+    	//Update number of collisions
         checkCollisions();
     }
     
@@ -102,8 +110,8 @@ public class nQueenBoard {
      * @return 		boolean of if there is at least one collision
      */
     public boolean hasCollisionsUpToDepth(int d) {
-        for(int q1 = 0; q1 < d; q1++) {
-            for(int q2 = q1 + 1; q2 < d; q2++) {
+        for(int q1 = 0; q1 <= d; q1++) {
+            for(int q2 = q1 + 1; q2 <= d; q2++) {
                 if(isCollision(q1, q2)) {
                     return true;
                 }
