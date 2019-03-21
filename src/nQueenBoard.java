@@ -5,9 +5,10 @@
  *
  */
 public class nQueenBoard {
-    private int size;  				// keeps track of the size of the board/number of queens
-    private int[] queens;   		// the ith queen is at location [i][queens[i]] on the board
-    private int nCollisions;   		// this track total number of collisions
+    private int size;  					// keeps track of the size of the board/number of queens
+    private int[] queens;   			// the ith queen is at location [i][queens[i]] on the board
+    private int[][] availPositions;   	// Tracks valid positions of the available positions for forward checking
+    private int nCollisions;   			// this track total number of collisions
 
     /** constructor: takes boardsize/numQueens
      * 

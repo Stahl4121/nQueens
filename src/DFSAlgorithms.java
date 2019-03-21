@@ -5,9 +5,19 @@
  *
  */
 public class DFSAlgorithms {
-	public static int numDFS = 0;
-	public static int numOptimizedDFS = 0;
-	public static int numBacktrackingDFS = 0;
+	private int numNodes = 0;
+	
+	//-----------------------------
+	//TODO: Move numNodes into method parameter, and print along with solutions
+	
+	/**
+	 * Getter for member variable numNodes
+	 * 
+	 * @return the number of expanded nodes
+	 */
+	public int getNumNodes(){
+		return numNodes;
+	}
 
 	/**
 	 * 
@@ -15,8 +25,8 @@ public class DFSAlgorithms {
 	 * @param depth
 	 * @return
 	 */
-	public static boolean DFS(nQueenBoard board, int depth) {
-		numDFS++;
+	public boolean DFS(nQueenBoard board, int depth) {
+		numNodes++;
 
 		if(board.getCollisions() == 0) {
 			System.out.println("\nSolution found using DFS: ");
@@ -51,53 +61,9 @@ public class DFSAlgorithms {
 	 * @param depth
 	 * @return
 	 */
-	public static boolean optimizedDFS(nQueenBoard board, int depth) {
+	public boolean btDFS(nQueenBoard board, int depth) {
 
-		/*this if statement is the optimization
-		 * basically, if there is a collision in the part of the board we are no longer changing (row < depth)
-		 * then we return
-		 * because no changes to subsequent rows could fix the collision of these rows
-		 */
-		if (board.hasCollisionsUpToDepth(depth)) {
-			return false;
-		}
-
-		numOptimizedDFS++;
-
-		if(board.getCollisions() == 0) {
-			System.out.println("Optimized DFS found solution");
-			for(int i = 0; i < board.getSize(); i++) {
-				System.out.print(board.getQueenAt(i) + " ");
-			}
-			System.out.println();
-			return true;
-		}
-
-
-		if (depth == board.getSize()) {
-			return false;
-		}
-		else {
-			for (int i = 0; i < board.getSize(); i++) {
-				nQueenBoard b = new nQueenBoard(board, depth, i);
-				if (optimizedDFS(b, depth+1)) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-	}
-
-	/**
-	 * 
-	 * @param board
-	 * @param depth
-	 * @return
-	 */
-	public static boolean backtrackingDFS(nQueenBoard board, int depth) {
-
-		numBacktrackingDFS++;
+		numNodes++;
 
 		if(board.getCollisions() == 0) {
 			System.out.println("Backtracking DFS found solution");
@@ -117,7 +83,66 @@ public class DFSAlgorithms {
 				nQueenBoard b = new nQueenBoard(board, depth, i);
 
 				if (!b.hasCollisionsUpToDepth(depth + 1)) {
-					if (optimizedDFS(b, depth+1)) {
+					if (btDFS(b, depth+1)) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+	}
+
+	/**
+	 * 
+	 * @param board
+	 * @param depth
+	 * @return
+	 */
+	public boolean fcDFS(nQueenBoard board, int depth) {
+
+		numNodes++;
+		
+		//Check if any rows are all false
+		//		return false;
+		
+		//Check if depth == size of board
+		//		print board;
+		//		print stats;
+		//		return true;
+		
+		//for(col in available in current depth)
+		//		if col == true
+		//			//Copy availPositions 2D array
+					//Reduce constraints in array
+					//if(FC())
+						//Return true
+		//Done
+					
+		
+		
+		
+		
+
+		if(board.getCollisions() == 0) {
+			System.out.println("Backtracking DFS found solution");
+			for(int i = 0; i < board.getSize(); i++) {
+				System.out.print(board.getQueenAt(i) + " ");
+			}
+			System.out.println();
+			return true;
+		}
+
+
+		if (depth == board.getSize()) {
+			return false;
+		}
+		else {
+			for (int i = 0; i < board.getSize(); i++) {
+				nQueenBoard b = new nQueenBoard(board, depth, i);
+
+				if (!b.hasCollisionsUpToDepth(depth + 1)) {
+					if (btDFS(b, depth+1)) {
 						return true;
 					}
 				}
