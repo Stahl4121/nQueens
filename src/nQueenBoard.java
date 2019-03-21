@@ -9,23 +9,15 @@
 public class nQueenBoard {
     private int size;  					// keeps track of the size of the board/number of queens
     private int[] queens;   			// the ith queen is at location [i][queens[i]] on the board
-    private int nCollisions;   			// this track total number of collisions
+    private int nCollisions;   			// this tracks the total number of collisions
 
-    /** Constructor which initializes an nQueens
-     *  board with queens placed in the first column.
+    /** Constructor
      * 
      * @param numQueens the dimension of the board
      */
     public nQueenBoard(int numQueens) {
         this.size = numQueens;
         this.queens = new int[size];
-
-        // need to initialize queens
-        for(int i = 0; i < size; i++) {
-        	queens[i] = 0;
-        }
-        
-        checkCollisions();
     }
     
     /** Copy constructor
@@ -37,7 +29,7 @@ public class nQueenBoard {
         this.queens = new int[size];
         this.nCollisions = oldBoard.getCollisions();
 
-        // need to initialize queens
+        //Copy locations of queens over
         for(int i = 0; i < size; i++) {
         	this.queens[i] = oldBoard.queens[i];
         }
@@ -49,12 +41,9 @@ public class nQueenBoard {
      * @param row		the row of the queen that will be moved
      * @param col		the new column location to move the queen
      */
-    public void editBoard(int row, int col) {
+    public void placeQueen(int row, int col) {
     	//Move the queen
     	queens[row] = col;
-        
-    	//Update number of collisions
-        checkCollisions();
     }
     
     /**
@@ -78,10 +67,11 @@ public class nQueenBoard {
     }
 
     /**
-     *  Calculates the number of queen collisions on the board
-     *  and stores it in a private member variable.
+     *  Calculates and returns the number of queen collisions on the board
+     *  
+     * @return number of collisions
      */
-    public void checkCollisions() {
+    public int getCollisions() {
         nCollisions = 0;
         
         for(int q1 = 0; q1 < size; q1++) {
@@ -91,15 +81,8 @@ public class nQueenBoard {
                 }
             }
         }
-    }
-    
-    /**
-     * Getter for nCollisions
-     * 
-     * @return member variable nCollisions
-     */
-    public int getCollisions() {
-    	return nCollisions;
+        
+        return nCollisions;
     }
     
     /**

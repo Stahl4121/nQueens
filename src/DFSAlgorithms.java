@@ -32,25 +32,24 @@ public class DFSAlgorithms {
 		//Increment number of nodes expanded
 		numNodes++;
 
-		//Check if the board is a solution
-		//If so, print the solution.
-		if(board.getCollisions() == 0) {
-			System.out.println("DFS found a solution:");
-			System.out.println(board.toString());
-			return true;
-		}
-
-		//If board is not a solution, but at the bottom of the
-		//tree, it is not a solution.
+		//Only check if the board is a solution when all queens have been placed
 		if (depth == board.getSize()) {
-			return false;
+			//If there are no collisions, we've found a solution
+			if(board.getCollisions() == 0) {
+				System.out.println("DFS found a solution:");
+				System.out.println(board.toString());
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 
 		//Loop through all positions of a queen at a given depth
 		for (int c = 0; c < board.getSize(); c++) {
 			//Create a new board and modify it at one position
 			nQueenBoard b = new nQueenBoard(board);
-			b.editBoard(depth, c);
+			b.placeQueen(depth, c);
 
 			//Expand the node with a recursive call
 			if (DFS(b, depth+1)) {
@@ -78,25 +77,24 @@ public class DFSAlgorithms {
 		//Increment number of nodes expanded
 		numNodes++;
 
-		//Check if the board is a solution
-		//If so, print the solution.
-		if(board.getCollisions() == 0) {
-			System.out.println("Backtracking DFS found a solution:");
-			System.out.println(board.toString());
-			return true;
-		}
-
-		//If board is not a solution, but at the bottom of the
-		//tree, it is not a solution.
+		//Only check if the board is a solution when all queens have been placed
 		if (depth == board.getSize()) {
-			return false;
+			//If there are no collisions, we've found a solution
+			if(board.getCollisions() == 0) {
+				System.out.println("Backtracking DFS found a solution:");
+				System.out.println(board.toString());
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-
+		
 		//Loop through all positions of a queen at a given depth
 		for (int c = 0; c < board.getSize(); c++) {
 			//Create a new board and modify it at one position
 			nQueenBoard b = new nQueenBoard(board);
-			b.editBoard(depth, c);
+			b.placeQueen(depth, c);
 
 			//This outer-if is the backtracking
 			//Only expand the node if the choice currently satisfies constraints
