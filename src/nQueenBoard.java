@@ -93,9 +93,9 @@ public class nQueenBoard {
      * @return
      */
     public boolean hasCollisionsUpToDepth(int d) {
-        for(int i = 0; i < d; i++) {
-            for(int j = i + 1; j < d; j++) {
-                if(isCollision(i, j)) {
+        for(int q1 = 0; q1 < d; q1++) {
+            for(int q2 = q1 + 1; q2 < d; q2++) {
+                if(isCollision(q1, q2)) {
                     return true;
                 }
             }
