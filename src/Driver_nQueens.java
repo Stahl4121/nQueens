@@ -41,7 +41,7 @@ public class Driver_nQueens {
 		//System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
 		for(algChoice = 4; algChoice <= 4; algChoice++) {
-			for(nQueens = 6; nQueens <= 6; nQueens++) {
+			for(nQueens = 4; nQueens <= 4; nQueens++) {
 				for(int trial = 1; trial<=1; trial++) {
 
 					//Run a different algorithm's method depending on the user's choice
@@ -57,6 +57,8 @@ public class Driver_nQueens {
 
 						numNodes = dfsAlgs.getNumNodes();
 						
+						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
+						
 						break;
 					case 2:
 						nQueenBoard bt = new nQueenBoard(nQueens);
@@ -67,6 +69,8 @@ public class Driver_nQueens {
 						endTime = System.nanoTime();
 						
 						numNodes = dfsAlgs.getNumNodes();
+						
+						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 
 						break;
 					case 3:
@@ -78,7 +82,7 @@ public class Driver_nQueens {
 						dfsAlgs.fcDFS(fc,0);
 						endTime = System.nanoTime();
 						
-						numNodes = dfsAlgs.getNumNodes();
+						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 
 						break;
 					case 4:
@@ -88,7 +92,6 @@ public class Driver_nQueens {
                         lsrrAlg.LSRR(lsrrBoard);
                         endTime = System.nanoTime();
                         
-                        numNodes = lsrrAlg.getNumNodes();
                         System.out.println("Number of restarts: " + lsrrAlg.getNumRestarts());
 						
                         break;
@@ -103,7 +106,6 @@ public class Driver_nQueens {
 					System.out.print("QUEENS " + nQueens + ", ");
 					System.out.println("TRIAL " + trial); 
 					
-					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 					System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
 
 				}

@@ -6,7 +6,6 @@
  */
 public class lsrrAlgorithm {
     private int numRestarts = 0;
-    private int numNodes = 0;
     private int minCollisions = 0;
     private boolean betterBoardExists = true;
     private nQueenBoard betterBoard = null;
@@ -22,15 +21,6 @@ public class lsrrAlgorithm {
         this.search();
     }
 
-    /**
-     * Getter for member variable numNodes
-     *
-     * @return the number of expanded nodes
-     */
-    public int getNumNodes(){
-        return numNodes;
-    }
-    
     /**
      * Getter for member variable numNodes
      *
@@ -61,7 +51,6 @@ public class lsrrAlgorithm {
         // otherwise rand restart because we're in a local min/max
         else {
             numRestarts++;
-            numNodes++;
             this.board = new nQueenBoard(board.getSize(),true);
             this.search();
         }
@@ -82,17 +71,14 @@ public class lsrrAlgorithm {
         for (int q = 0; q < board.getSize(); q++) {
 
             for (int p = 0; p < board.getSize(); p++) {
-                numNodes++;
 
                 nQueenBoard temp = new nQueenBoard(this.board);
                 temp.placeQueen(q, p);
                 tempMC = temp.getCollisions(); 
                 
                 if(tempMC < currMC) {
-
                     betterBoard = temp;
                     currMC = tempMC;
-                    foundBetter = true;
                 }
             }
         }
