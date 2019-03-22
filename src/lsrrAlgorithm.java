@@ -6,25 +6,28 @@
  *
  */
 public class lsrrAlgorithm {
-    private int numRestarts = 0;
-    private int minCollisions = 0;
+    private int numRestarts = 0; //number of random restarts
+    private int minCollisions = 0; //the fewest collisions on the best board so far
     private boolean betterBoardExists = true;
     private nQueenBoard betterBoard = null;
     private nQueenBoard board;
 
-    /** constructor: takes board
+    /** constructor: takes number of queens
      *
-     * @param startBoard
+     * @param number of queens
      */
     public void LSRR(int nQueens) {
         boolean foundSolution = false;
         
+        // while a solution hasn't been found generate a random board of size
+        // nQueens and then proceeds to locally search.
         while(!foundSolution) {
             this.board = new nQueenBoard(nQueens, true);
             this.betterBoard = this.board;
             minCollisions = board.getCollisions();
         	foundSolution = search();
-
+            // if the search doesn't return a solution,
+        	// you'll loop and restart randomly
             numRestarts++;
         }
         
@@ -71,26 +74,33 @@ public class lsrrAlgorithm {
 
     // generate all neighbors and find minimum collisions board
     public boolean betterNeighbor() {
-
+    	
         boolean foundBetter = false;
         int currMC = minCollisions;
         int tempMC = 0;
         
+        // loop through all queens
         for (int q = 0; q < board.getSize(); q++) {
-
+        	// loop through all rows
             for (int p = 0; p < board.getSize(); p++) {
-
+            	// create a temporary neighbor board that is 
+            	// identical to the original except for the
+            	// qth qeen which will be moved to position p
                 nQueenBoard temp = new nQueenBoard(this.board);
                 temp.placeQueen(q, p);
                 tempMC = temp.getCollisions(); 
                 
+                // if the temp boards collisions is less than the current collision counts
                 if(tempMC < currMC) {
+                	// this is the best neighbor board so far so we save it
                     betterBoard = temp;
                     currMC = tempMC;
                 }
             }
         }
         
+        // the best neighbor has fewer collisions than the original
+        // this is better than the original
         if(currMC < minCollisions) {
             foundBetter = true;
             minCollisions = currMC;
