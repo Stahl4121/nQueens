@@ -1,66 +1,22 @@
 import java.util.Scanner;
+
 /**
+ * The driver for the n-queens problem. 
+ * Handles user input for solving the problem.
+ * Creates the necessary objects and runs/times 
+ * the algorithms chosen by the user.
  * 
  * @authors Sarah Calvis, Logan Stahl, Miriam Tan
  *
  */
 public class Driver_nQueens {
-
-	/**
-	 * 
-	 */
-	public static void runDFS(int nQueens) {
-		nQueenBoard n = new nQueenBoard(nQueens);
-		DFSAlgorithms dfsRun = new DFSAlgorithms();
-
-		long startTime = System.nanoTime();
-		dfsRun.DFS(n,0);
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
-
-		System.out.println("DFS time: " + duration/1000000000.0 );
-		System.out.println("DFS expanded " + dfsRun.getNumNodes()+ " nodes.\n");
-	}
-
-	/**
-	 * 
-	 */
-	public static void runBTDFS(int nQueens) {
-		nQueenBoard n1 = new nQueenBoard(nQueens);
-		DFSAlgorithms btDFSRun = new DFSAlgorithms();
-
-		long startTime = System.nanoTime();
-		btDFSRun.btDFS(n1,0);
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
-
-		System.out.println("Backtracking DFS time: " + duration/1000000000.0);
-		System.out.println("Backtracking DFS expanded " + btDFSRun.getNumNodes() + " nodes.\n");
-	}
-
-
-	/**
-	 * 
-	 */
-	public static void runFCDFS(int nQueens) {
-		nQueenBoard n1 = new nQueenBoard(nQueens);
-		DFSAlgorithms fcDFSRun = new DFSAlgorithms();
-
-		long startTime = System.nanoTime();
-		fcDFSRun.fcDFS(n1,0);
-		long endTime = System.nanoTime();
-		long duration = (endTime - startTime);
-
-		System.out.println("Forward Checking DFS time: " + duration/1000000000.0);
-		System.out.println("Forward Checking DFS expanded " + fcDFSRun.getNumNodes() + " nodes.\n");
-	}
-
-	/**
-	 * 
-	 */
 	public static void main(String[] args) {
-		//Get number of queens
-		Scanner s = new Scanner(System.in);
+		Scanner s = new Scanner(System.in);				//Scanner to read in user input
+		DFSAlgorithms dfsAlgs = new DFSAlgorithms();	//Object from which to run the algorithms
+		
+		long startTime = 0, endTime = 0, duration;		//Variables to track elapsed time
+		
+		//Get the user's choice of algorithm
 		System.out.println("Which search algorithm would you like to use?");
 		System.out.println("\t1. Depth First Search");
 		System.out.println("\t2. Depth First Search with Backtracking");
@@ -68,19 +24,39 @@ public class Driver_nQueens {
 		System.out.println("\t4. Local Search with Random Restart");
 		int algChoice = s.nextInt();
 
+		//Get the dimension of the board
 		System.out.println("\nWhat size of board would you like to solve? (i.e. how many queens?)");
 		int nQueens = s.nextInt();
+		
+		System.out.println("\n\n");
+		
 		s.close();
 
+		//Run a different algorithm's method depending on the user's choice
 		switch (algChoice) {
 		case 1:
-			runDFS(nQueens);
+			
+			nQueenBoard n = new nQueenBoard(nQueens);
+			startTime = System.nanoTime();
+			dfsAlgs.DFS(n,0,1);
+			endTime = System.nanoTime();
+			
 			break;
 		case 2:
-			runBTDFS(nQueens);
+			
+			nQueenBoard bt = new nQueenBoard(nQueens);
+			startTime = System.nanoTime();
+			dfsAlgs.btDFS(bt,0,1);
+			endTime = System.nanoTime();
+			
 			break;
 		case 3:
-			runFCDFS(nQueens);
+			
+			nQueenBoardFC fc = new nQueenBoardFC(nQueens);
+			startTime = System.nanoTime();
+			dfsAlgs.fcDFS(fc,0,1);
+			endTime = System.nanoTime();
+
 			break;
 		case 4:
 			//runLSRR()...
@@ -88,6 +64,9 @@ public class Driver_nQueens {
 		default:
 			break;
 		}
-
+		
+		//Calculate and print elapsed time
+		duration = (endTime - startTime);
+		System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds");
 	}
 }
