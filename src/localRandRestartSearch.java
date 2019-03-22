@@ -5,13 +5,11 @@
  *
  */
 public class localRandRestartSearch {
-    public static int numRestarts = 0;
-    public static int numNodes = 0;
-    public static double totalTime = 0.0;
-    public static int minCollisions = 0;
-    public static int betterBoard = null;
-    public static boolean betterBoardExists = true;
-
+    private int numRestarts = 0;
+    private int numNodes = 0;
+    private int minCollisions = 0;
+    private int betterBoard = null;
+    private boolean betterBoardExists = true;
     private nQueenBoard board;
 
     /** constructor: takes board
@@ -21,6 +19,15 @@ public class localRandRestartSearch {
     public localRandRestartSearch(nQueenBoard startBoard) {
         this.board = startBoard;
         this.search();
+    }
+
+    /**
+     * Getter for member variable numNodes
+     *
+     * @return the number of expanded nodes
+     */
+    public int getNumNodes(){
+        return numNodes;
     }
 
     /**
@@ -38,18 +45,15 @@ public class localRandRestartSearch {
         // there are no better options for the board
         // if there are no collisions then the solution has been found
         if (board.getCollisions() == 0) {
-            System.out.println("\nSolution found using local search with random restart: ");
-            for (int i = 0; i < board.getSize(); i++) {
-                System.out.print(board.getQueenAt(i) + " ");
-            }
-            System.out.println();
+            System.out.println("\nlocal search with random restart found a solution: ");
+            this.board.toString();
             return true;
         }
         // otherwise rand restart because we're in a local min/max
         else {
             numRestarts++;
             numNodes++;
-            int s = this.board.size;
+            int s = this.board.getSize();
             this.board = new nQueenBoard(s);
         }
 

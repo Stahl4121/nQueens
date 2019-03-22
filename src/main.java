@@ -30,6 +30,7 @@ public class Driver_nQueens {
 		//Get the dimension of the board
 		System.out.println("\nWhat size of board would you like to solve? (i.e. how many queens?)");
 		int nQueens;// = s.nextInt();
+        int nNodes;
 
 		System.out.println("\n\n");
 
@@ -75,6 +76,12 @@ public class Driver_nQueens {
 						break;
 					case 4:
 						//runLSRR();
+                        nQueenBoard lsrrBoard = new nQueenBoard(nQueens);
+
+                        startTime = System.nanoTime();
+                        localRandRestartSearch lsrr = new localRandRestartSearch(lsrr);
+                        endTime = System.nanoTime();
+                        nNodes = lsrr.getNumNodes();
 						break;
 					default:
 						break;
@@ -86,8 +93,13 @@ public class Driver_nQueens {
 					System.out.print("ALG " + algChoice + ", ");
 					System.out.print("QUEENS " + nQueens + ", ");
 					System.out.println("TRIAL " + trial);
+
+					if(algChoice != 4) {
+					    nNodes = dfsAlgs.getNumNodes()
+                    }
+
 					
-					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
+					System.out.println("Nodes expanded: " + nNodes);
 					System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
 
 				}
