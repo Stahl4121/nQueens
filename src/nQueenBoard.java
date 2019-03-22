@@ -1,4 +1,4 @@
-
+import java.util.concurrent.ThreadLocalRandom;
 /**
  * This is the class for managing a board for the n-queens problem.
  * It is used for our DFS algorithm, DFS with Backtracking algorithm, and Local Search with Random Restart.
@@ -32,6 +32,28 @@ public class nQueenBoard {
         //Copy locations of queens over
         for(int i = 0; i < size; i++) {
         	this.queens[i] = oldBoard.queens[i];
+        }
+   }
+    
+    /** Copy constructor that changes one queen
+     * 
+     * @param oldBoard	the board to be copied
+     */
+    public nQueenBoard(nQueenBoard oldBoard, int queen, int col) {
+        this.size = oldBoard.size;
+        this.queens = new int[size];
+        this.nCollisions = oldBoard.getCollisions();
+
+        //Copy locations of queens over
+        for(int i = 0; i < size; i++) {
+        	this.queens[i] = oldBoard.queens[i];
+        }
+        this.placeQueen(queen, col);
+    }
+    
+    public void randomizeQueens() {
+    	for(int i = 0; i < size; i++) {
+        	this.queens[i] = ThreadLocalRandom.current().nextInt(0, size);
         }
     }
     
