@@ -56,7 +56,7 @@ public class lsrrAlgorithm {
         // if there are no collisions then the solution has been found
         if (board.getCollisions() == 0) {
             System.out.println("\nLocal Search with Random Restart found a solution:");
-            this.board.toString();
+            System.out.println(this.board.toString());
             return true;
         }
         // otherwise rand restart because we're in a local min/max
