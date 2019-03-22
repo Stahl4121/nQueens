@@ -16,17 +16,20 @@ public class lsrrAlgorithm {
      *
      * @param startBoard
      */
-    public void LSRR(nQueenBoard startBoard) {
-        this.board = startBoard;
-        this.betterBoard = startBoard;
-        minCollisions = board.getCollisions();
-        
-        
+    public void LSRR(int nQueens) {
         boolean foundSolution = false;
         
         while(!foundSolution) {
+            this.board = new nQueenBoard(nQueens, true);
+            this.betterBoard = this.board;
+            minCollisions = board.getCollisions();
         	foundSolution = search();
+
+            numRestarts++;
         }
+        
+        System.out.println("\nLocal Search with Random Restart found a solution:");
+        System.out.println(this.board.toString());
     }
 
     /**
@@ -59,16 +62,10 @@ public class lsrrAlgorithm {
         // there are no better options for the board
         // if there are no collisions then the solution has been found
         if (minCollisions == 0) {
-            System.out.println("\nLocal Search with Random Restart found a solution:");
-            System.out.println(this.board.toString());
             return true;
         }
         // otherwise rand restart because we're in a local min/max
-        else {
-            numRestarts++;
-            this.board = new nQueenBoard(board.getSize(),true);
-            return false;
-        }
+        return false;
         
     }
 

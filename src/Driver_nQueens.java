@@ -82,11 +82,10 @@ public class Driver_nQueens {
 
 			break;
 		case 4:
-			nQueenBoard lsrrBoard = new nQueenBoard(nQueens, true);
 			lsrrAlg.resetNumRestarts();
 
 			startTime = System.nanoTime();
-			lsrrAlg.LSRR(lsrrBoard);
+			lsrrAlg.LSRR(nQueens);
 			endTime = System.nanoTime();
 
 			System.out.println("Number of restarts: " + lsrrAlg.getNumRestarts());
@@ -98,8 +97,6 @@ public class Driver_nQueens {
 
 		//Calculate and print elapsed time
 		duration = (endTime - startTime);
-
-		System.out.print("ALG: " + algChoice + ", " + "QUEENS " + nQueens);
 		System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
 
 	}
