@@ -40,7 +40,7 @@ public class Driver_nQueens {
 
 		System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
-		for(nQueens = 10; nQueens <= 10; nQueens++) {
+		for(nQueens = 4; nQueens <= 8; nQueens++) {
 			for(int trial = 1; trial<=3; trial++) {
 
 				//Run a different algorithm's method depending on the user's choice
@@ -86,6 +86,7 @@ public class Driver_nQueens {
 					break;
 				case 4:
 					nQueenBoard lsrrBoard = new nQueenBoard(nQueens, true);
+					lsrrAlg.resetNumRestarts();
 
 					startTime = System.nanoTime();
 					lsrrAlg.LSRR(lsrrBoard);

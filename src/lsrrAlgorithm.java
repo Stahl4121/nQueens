@@ -31,6 +31,13 @@ public class lsrrAlgorithm {
     public int getNumRestarts(){
         return numRestarts;
     }
+	
+	/**
+	 * Resets restart count to 0
+	 */
+	public void resetNumRestarts() {
+		numRestarts = 0;
+	}
 
     /**
      * @return found solution
