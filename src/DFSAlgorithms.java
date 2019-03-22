@@ -7,6 +7,25 @@
  *
  */
 public class DFSAlgorithms {
+	private int numNodes = 0;	//The number of expanded nodes
+
+	
+	/**
+	 * Getter for member variable numNodes
+	 * 
+	 * @return the number of expanded nodes
+	 */
+	public int getNumNodes(){
+		return numNodes;
+	}
+	
+	/**
+	 * Resets numNodes count of expanded nodes to 0
+	 */
+	public void resetNumNodes() {
+		numNodes = 0;
+	}
+	
 	/**
 	 * Recursive method for plain DFS, with no thinking. 
 	 * Branches on every node, only checking if the board 
@@ -14,19 +33,18 @@ public class DFSAlgorithms {
 	 * 
 	 * @param 	board		the initial board to search for a solution
 	 * @param 	depth   	the current depth of the board being searched
-	 * @param	numNodes	the number of expanded nodes
 	 * @return	true,		if a solution has been found
 	 */
-	public boolean DFS(nQueenBoard board, int depth, int numNodes) {
-
+	public boolean DFS(nQueenBoard board, int depth) {
+		//Increment the number of expanded nodes
+		numNodes++;
+		
 		//Only check if the board is a solution when all queens have been placed
 		if (depth == board.getSize()) {
 			//If there are no collisions, we've found a solution
 			if(board.getCollisions() == 0) {
 				System.out.println("DFS found a solution:");
 				System.out.println(board.toString());
-				System.out.println("Nodes expanded: " + numNodes);
-				
 				return true;
 			}
 			else {
@@ -41,7 +59,7 @@ public class DFSAlgorithms {
 			b.placeQueen(depth, c);
 
 			//Expand the node with a recursive call
-			if (DFS(b, depth+1, numNodes+1)) {
+			if (DFS(b, depth+1)) {
 				return true;
 			}
 		}
@@ -59,18 +77,18 @@ public class DFSAlgorithms {
 	 * 
 	 * @param 	board		the initial board to search for a solution
 	 * @param 	depth   	the current depth of the board being searched
-	 * @param	numNodes	the number of expanded nodes
 	 * @return	true,		if a solution has been found
 	 */
-	public boolean btDFS(nQueenBoard board, int depth, int numNodes) {
-
+	public boolean btDFS(nQueenBoard board, int depth) {
+		//Increment the number of expanded nodes
+		numNodes++;
+		
 		//Only check if the board is a solution when all queens have been placed
 		if (depth == board.getSize()) {
 			//If there are no collisions, we've found a solution
 			if(board.getCollisions() == 0) {
 				System.out.println("Backtracking DFS found a solution:");
 				System.out.println(board.toString());
-				System.out.println("Nodes expanded: " + numNodes);
 				return true;
 			}
 			else {
@@ -88,7 +106,7 @@ public class DFSAlgorithms {
 			//Only expand the node if the choice currently satisfies constraints
 			if (!b.hasCollisionsUpToDepth(depth)) {
 				//Expand the node with a recursive call
-				if (btDFS(b, depth+1, numNodes+1)) {
+				if (btDFS(b, depth+1)) {
 					return true;
 				}
 			}
@@ -108,17 +126,17 @@ public class DFSAlgorithms {
 	 * 
 	 * @param 	board		the initial board to search for a solution
 	 * @param 	depth   	the current depth of the board being searched
-	 * @param	numNodes	the number of expanded nodes
 	 * @return	true,		if a solution has been found
 	 */
-	public boolean fcDFS(nQueenBoardFC board, int depth, int numNodes) {
+	public boolean fcDFS(nQueenBoardFC board, int depth) {
+		//Increment the number of expanded nodes
+		numNodes++;
 		
 		//If the board had no empty domains (and so was expanded)
 		//and is at it's max depth, then it must be a solution
 		if(depth == board.getSize()) {
 			System.out.println("Forward Checking DFS found a solution:");
 			System.out.println(board.toString());
-			System.out.println("Nodes expanded: " + numNodes);
 			return true;
 		}
 
@@ -133,7 +151,7 @@ public class DFSAlgorithms {
 
 				//Only expand the node if the board does not have any empty domains
 				if(!b.hasEmptyDomain(depth)) {
-					if(fcDFS(b, depth+1, numNodes+1)){
+					if(fcDFS(b, depth+1)){
 						return true;
 					}
 				}

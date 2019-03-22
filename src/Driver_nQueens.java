@@ -17,7 +17,6 @@ public class Driver_nQueens {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner s = new Scanner(System.in);				//Scanner to read in user input
 		DFSAlgorithms dfsAlgs = new DFSAlgorithms();	//Object from which to run the algorithms
-
 		long startTime = 0, endTime = 0, duration;		//Variables to track elapsed time
 
 		//Get the user's choice of algorithm
@@ -48,24 +47,29 @@ public class Driver_nQueens {
 					case 1:
 
 						nQueenBoard n = new nQueenBoard(nQueens);
+						dfsAlgs.resetNumNodes();	//Resets the expanded node count
+						
 						startTime = System.nanoTime();
-						dfsAlgs.DFS(n,0,1);
+						dfsAlgs.DFS(n,0);
 						endTime = System.nanoTime();
 
 						break;
 					case 2:
-
 						nQueenBoard bt = new nQueenBoard(nQueens);
+						dfsAlgs.resetNumNodes();	//Resets the expanded node count
+
 						startTime = System.nanoTime();
-						dfsAlgs.btDFS(bt,0,1);
+						dfsAlgs.btDFS(bt,0);
 						endTime = System.nanoTime();
 
 						break;
 					case 3:
 
 						nQueenBoardFC fc = new nQueenBoardFC(nQueens);
+						dfsAlgs.resetNumNodes();	//Resets the expanded node count
+
 						startTime = System.nanoTime();
-						dfsAlgs.fcDFS(fc,0,1);
+						dfsAlgs.fcDFS(fc,0);
 						endTime = System.nanoTime();
 
 						break;
@@ -83,6 +87,7 @@ public class Driver_nQueens {
 					System.out.print("QUEENS " + nQueens + ", ");
 					System.out.println("TRIAL " + trial);
 					
+					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 					System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
 
 				}
