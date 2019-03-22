@@ -63,7 +63,7 @@ public class lsrrAlgorithm {
         else {
             numRestarts++;
             numNodes++;
-            this.board = new nQueenBoard(board.getSize());
+            this.board = new nQueenBoard(board.getSize(),true);
             this.search();
         }
         
