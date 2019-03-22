@@ -47,16 +47,16 @@ public class lsrrAlgorithm {
         minCollisions = board.getCollisions();
 
         // while there are still better options keep optimizing
-        while (betterBoardExists) {
+        do {
             betterBoardExists = betterNeighbor();
             this.board = betterBoard;
-        }
-
+        } while(betterBoardExists);
+        
         // there are no better options for the board
         // if there are no collisions then the solution has been found
         if (board.getCollisions() == 0) {
             System.out.println("\nLocal Search with Random Restart found a solution:");
-            this.board.toString();
+            System.out.println(this.board.toString());
             return true;
         }
         // otherwise rand restart because we're in a local min/max
