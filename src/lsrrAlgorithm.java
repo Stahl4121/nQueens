@@ -20,7 +20,13 @@ public class lsrrAlgorithm {
         this.board = startBoard;
         this.betterBoard = startBoard;
         minCollisions = board.getCollisions();
-        this.search();
+        
+        
+        boolean foundSolution = false;
+        
+        while(!foundSolution) {
+        	foundSolution = search();
+        }
     }
 
     /**
@@ -61,13 +67,9 @@ public class lsrrAlgorithm {
         else {
             numRestarts++;
             this.board = new nQueenBoard(board.getSize(),true);
-            this.search();
+            return false;
         }
         
-        //Will never reach this return statement.
-        //You could check numRestarts to return 
-        //false if it has restarted too many times.
-        return false;
     }
 
     // generate all neighbors and find minimum collisions board
