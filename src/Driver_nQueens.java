@@ -18,6 +18,7 @@ public class Driver_nQueens {
 		Scanner s = new Scanner(System.in);				//Scanner to read in user input
 		DFSAlgorithms dfsAlgs = new DFSAlgorithms();	//Object from which to run the algorithms
 		long startTime = 0, endTime = 0, duration;		//Variables to track elapsed time
+		int numNodes = 0;								//Tracks number of nodes
 
 		//Get the user's choice of algorithm
 		System.out.println("Which search algorithm would you like to use?");
@@ -53,6 +54,8 @@ public class Driver_nQueens {
 						dfsAlgs.DFS(n,0);
 						endTime = System.nanoTime();
 
+						numNodes = dfsAlgs.getNumNodes();
+						
 						break;
 					case 2:
 						nQueenBoard bt = new nQueenBoard(nQueens);
@@ -61,6 +64,8 @@ public class Driver_nQueens {
 						startTime = System.nanoTime();
 						dfsAlgs.btDFS(bt,0);
 						endTime = System.nanoTime();
+						
+						numNodes = dfsAlgs.getNumNodes();
 
 						break;
 					case 3:
@@ -71,11 +76,20 @@ public class Driver_nQueens {
 						startTime = System.nanoTime();
 						dfsAlgs.fcDFS(fc,0);
 						endTime = System.nanoTime();
+						
+						numNodes = dfsAlgs.getNumNodes();
 
 						break;
 					case 4:
-						//runLSRR();
-						break;
+                        nQueenBoard lsrrBoard = new nQueenBoard(nQueens);
+
+                        startTime = System.nanoTime();
+                        localRandRestartSearch lsrr = new localRandRestartSearch(lsrrBoard);
+                        endTime = System.nanoTime();
+                        
+                        numNodes = lsrr.getNumNodes();
+						
+                        break;
 					default:
 						break;
 					}
@@ -85,7 +99,7 @@ public class Driver_nQueens {
 
 					System.out.print("ALG " + algChoice + ", ");
 					System.out.print("QUEENS " + nQueens + ", ");
-					System.out.println("TRIAL " + trial);
+					System.out.println("TRIAL " + trial); 
 					
 					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 					System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
