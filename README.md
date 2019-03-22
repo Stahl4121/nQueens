@@ -16,7 +16,9 @@ This project solves the *n*-queens problem using Depth First Search, Depth First
 
 * nQueenBoard - Holds a Board object with n queens.
 
-* nQueenBoardFC - A modification of nQueenBoard to suit the needs of Depth First Seach with Forward Checking.
+* nQueenBoardFC - A modification of nQueenBoard to suit the needs of Depth First Search with Forward Checking.
+
+* lsrrAlgorithm - Holds the algorithm of Local Search with Random Restart
 
 **To Run:**
 1. Run the program.

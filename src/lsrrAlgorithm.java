@@ -1,6 +1,7 @@
 
 /**
- *
+ *	Contains the Local Search with Random Research algorithm
+ * for solving the n-queens problem.
  * @authors Sarah Calvis, Logan Stahl, Miriam Tan
  *
  */
@@ -18,6 +19,7 @@ public class lsrrAlgorithm {
     public void LSRR(nQueenBoard startBoard) {
         this.board = startBoard;
         this.betterBoard = startBoard;
+        minCollisions = board.getCollisions();
         this.search();
     }
 
@@ -43,7 +45,7 @@ public class lsrrAlgorithm {
         
         // there are no better options for the board
         // if there are no collisions then the solution has been found
-        if (board.getCollisions() == 0) {
+        if (minCollisions == 0) {
             System.out.println("\nLocal Search with Random Restart found a solution:");
             System.out.println(this.board.toString());
             return true;

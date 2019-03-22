@@ -17,7 +17,7 @@ public class Driver_nQueens {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner s = new Scanner(System.in);				//Scanner to read in user input
 		DFSAlgorithms dfsAlgs = new DFSAlgorithms();	//Object from which to run the algorithms
-        lsrrAlgorithm lsrrAlg = new lsrrAlgorithm();	//Object from which to run LSRR
+		lsrrAlgorithm lsrrAlg = new lsrrAlgorithm();	//Object from which to run LSRR
 		long startTime = 0, endTime = 0, duration;		//Variables to track elapsed time
 		int numNodes = 0;								//Tracks number of nodes
 
@@ -27,7 +27,7 @@ public class Driver_nQueens {
 		System.out.println("\t2. Depth First Search with Backtracking");
 		System.out.println("\t3. Depth First Search with Forward Checking");
 		System.out.println("\t4. Local Search with Random Restart");
-		int algChoice;// = s.nextInt();
+		int algChoice = 4;// = s.nextInt();
 
 		//Get the dimension of the board
 		System.out.println("\nWhat size of board would you like to solve? (i.e. how many queens?)");
@@ -36,79 +36,77 @@ public class Driver_nQueens {
 		System.out.println("\n\n");
 
 		s.close();
-		
-		
-		//System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
-		for(algChoice = 4; algChoice <= 4; algChoice++) {
-			for(nQueens = 4; nQueens <= 4; nQueens++) {
-				for(int trial = 1; trial<=1; trial++) {
 
-					//Run a different algorithm's method depending on the user's choice
-					switch (algChoice) {
-					case 1:
+		System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
-						nQueenBoard n = new nQueenBoard(nQueens);
-						dfsAlgs.resetNumNodes();	//Resets the expanded node count
-						
-						startTime = System.nanoTime();
-						dfsAlgs.DFS(n,0);
-						endTime = System.nanoTime();
+		for(nQueens = 10; nQueens <= 10; nQueens++) {
+			for(int trial = 1; trial<=3; trial++) {
 
-						numNodes = dfsAlgs.getNumNodes();
-						
-						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
-						
-						break;
-					case 2:
-						nQueenBoard bt = new nQueenBoard(nQueens);
-						dfsAlgs.resetNumNodes();	//Resets the expanded node count
+				//Run a different algorithm's method depending on the user's choice
+				switch (algChoice) {
+				case 1:
 
-						startTime = System.nanoTime();
-						dfsAlgs.btDFS(bt,0);
-						endTime = System.nanoTime();
-						
-						numNodes = dfsAlgs.getNumNodes();
-						
-						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
+					nQueenBoard n = new nQueenBoard(nQueens);
+					dfsAlgs.resetNumNodes();	//Resets the expanded node count
 
-						break;
-					case 3:
+					startTime = System.nanoTime();
+					dfsAlgs.DFS(n,0);
+					endTime = System.nanoTime();
 
-						nQueenBoardFC fc = new nQueenBoardFC(nQueens);
-						dfsAlgs.resetNumNodes();	//Resets the expanded node count
+					numNodes = dfsAlgs.getNumNodes();
 
-						startTime = System.nanoTime();
-						dfsAlgs.fcDFS(fc,0);
-						endTime = System.nanoTime();
-						
-						System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
+					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 
-						break;
-					case 4:
-                        nQueenBoard lsrrBoard = new nQueenBoard(nQueens, true);
+					break;
+				case 2:
+					nQueenBoard bt = new nQueenBoard(nQueens);
+					dfsAlgs.resetNumNodes();	//Resets the expanded node count
 
-                        startTime = System.nanoTime();
-                        lsrrAlg.LSRR(lsrrBoard);
-                        endTime = System.nanoTime();
-                        
-                        System.out.println("Number of restarts: " + lsrrAlg.getNumRestarts());
-						
-                        break;
-					default:
-						break;
-					}
+					startTime = System.nanoTime();
+					dfsAlgs.btDFS(bt,0);
+					endTime = System.nanoTime();
 
-					//Calculate and print elapsed time
-					duration = (endTime - startTime);
+					numNodes = dfsAlgs.getNumNodes();
 
-					System.out.print("ALG " + algChoice + ", ");
-					System.out.print("QUEENS " + nQueens + ", ");
-					System.out.println("TRIAL " + trial); 
-					
-					System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
+					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
 
+					break;
+				case 3:
+
+					nQueenBoardFC fc = new nQueenBoardFC(nQueens);
+					dfsAlgs.resetNumNodes();	//Resets the expanded node count
+
+					startTime = System.nanoTime();
+					dfsAlgs.fcDFS(fc,0);
+					endTime = System.nanoTime();
+
+					System.out.println("Nodes expanded: " + dfsAlgs.getNumNodes());
+
+					break;
+				case 4:
+					nQueenBoard lsrrBoard = new nQueenBoard(nQueens, true);
+
+					startTime = System.nanoTime();
+					lsrrAlg.LSRR(lsrrBoard);
+					endTime = System.nanoTime();
+
+					System.out.println("Number of restarts: " + lsrrAlg.getNumRestarts());
+
+					break;
+				default:
+					break;
 				}
+
+				//Calculate and print elapsed time
+				duration = (endTime - startTime);
+
+				System.out.print("ALG " + algChoice + ", ");
+				System.out.print("QUEENS " + nQueens + ", ");
+				System.out.println("TRIAL " + trial); 
+
+				System.out.println("Time Elapsed: \t" + duration/1000000000.0 + " seconds\n\n\n\n");
+
 			}
 		}
 	}
