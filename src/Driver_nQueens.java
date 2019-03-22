@@ -38,10 +38,10 @@ public class Driver_nQueens {
 		s.close();
 		
 		
-		System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
+		//System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt")), true));
 
 		for(algChoice = 4; algChoice <= 4; algChoice++) {
-			for(nQueens = 4; nQueens <= 4; nQueens++) {
+			for(nQueens = 5; nQueens <= 5; nQueens++) {
 				for(int trial = 1; trial<=1; trial++) {
 
 					//Run a different algorithm's method depending on the user's choice

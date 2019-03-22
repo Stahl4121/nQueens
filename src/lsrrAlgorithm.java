@@ -47,10 +47,10 @@ public class lsrrAlgorithm {
         minCollisions = board.getCollisions();
 
         // while there are still better options keep optimizing
-        while (betterBoardExists) {
+        do {
             betterBoardExists = betterNeighbor();
             this.board = betterBoard;
-        }
+        } while(betterBoardExists);
         
         // there are no better options for the board
         // if there are no collisions then the solution has been found
