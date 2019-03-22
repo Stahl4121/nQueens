@@ -51,7 +51,7 @@ public class lsrrAlgorithm {
             betterBoardExists = betterNeighbor();
             this.board = betterBoard;
         }
-        
+
         // there are no better options for the board
         // if there are no collisions then the solution has been found
         if (board.getCollisions() == 0) {
@@ -77,7 +77,9 @@ public class lsrrAlgorithm {
     public boolean betterNeighbor() {
 
         boolean foundBetter = false;
-
+        int currMC = minCollisions;
+        int tempMC = 0;
+        
         for (int q = 0; q < board.getSize(); q++) {
 
             for (int p = 0; p < board.getSize(); p++) {
@@ -85,15 +87,21 @@ public class lsrrAlgorithm {
 
                 nQueenBoard temp = new nQueenBoard(this.board);
                 temp.placeQueen(q, p);
-                // if this has fewer collisions than the
-                if(temp.getCollisions() < minCollisions) {
+                tempMC = temp.getCollisions(); 
+                
+                if(tempMC < currMC) {
 
                     betterBoard = temp;
-                    minCollisions = temp.getCollisions();
+                    currMC = tempMC;
                     foundBetter = true;
                 }
             }
         }
+        
+        if(currMC < minCollisions) {
+            foundBetter = true;
+        }
+        
         return foundBetter;
     }
 
