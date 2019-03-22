@@ -18,6 +18,7 @@ public class lsrrAlgorithm {
      */
     public void LSRR(nQueenBoard startBoard) {
         this.board = startBoard;
+        this.betterBoard = startBoard;
         this.search();
     }
 
@@ -43,8 +44,6 @@ public class lsrrAlgorithm {
      * @return found solution
      */
     public boolean search() {
-
-        minCollisions = board.getCollisions();
 
         // while there are still better options keep optimizing
         do {
@@ -100,6 +99,7 @@ public class lsrrAlgorithm {
         
         if(currMC < minCollisions) {
             foundBetter = true;
+            minCollisions = currMC;
         }
         
         return foundBetter;
