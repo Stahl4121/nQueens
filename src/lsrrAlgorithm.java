@@ -4,19 +4,19 @@
  * @authors Sarah Calvis, Logan Stahl, Miriam Tan
  *
  */
-public class localRandRestartSearch {
+public class lsrrAlgorithm {
     private int numRestarts = 0;
     private int numNodes = 0;
     private int minCollisions = 0;
-    private nQueenBoard betterBoard = null;
     private boolean betterBoardExists = true;
+    private nQueenBoard betterBoard = null;
     private nQueenBoard board;
 
     /** constructor: takes board
      *
-     * @param board
+     * @param startBoard
      */
-    public localRandRestartSearch(nQueenBoard startBoard) {
+    public void LSRR(nQueenBoard startBoard) {
         this.board = startBoard;
         this.search();
     }
@@ -28,6 +28,15 @@ public class localRandRestartSearch {
      */
     public int getNumNodes(){
         return numNodes;
+    }
+    
+    /**
+     * Getter for member variable numNodes
+     *
+     * @return the number of expanded nodes
+     */
+    public int getNumRestarts(){
+        return numRestarts;
     }
 
     /**
@@ -42,10 +51,11 @@ public class localRandRestartSearch {
             betterBoardExists = betterNeighbor();
             this.board = betterBoard;
         }
+        
         // there are no better options for the board
         // if there are no collisions then the solution has been found
         if (board.getCollisions() == 0) {
-            System.out.println("\nlocal search with random restart found a solution: ");
+            System.out.println("\nLocal Search with Random Restart found a solution:");
             this.board.toString();
             return true;
         }
@@ -54,8 +64,13 @@ public class localRandRestartSearch {
             numRestarts++;
             numNodes++;
             this.board = new nQueenBoard(board.getSize());
+            this.search();
         }
-
+        
+        //Will never reach this return statement.
+        //You could check numRestarts to return 
+        //false if it has restarted too many times.
+        return false;
     }
 
     // generate all neighbors and find minimum collisions board

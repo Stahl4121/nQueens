@@ -1,3 +1,4 @@
+import java.util.Random;
 
 /**
  * This is the class for managing a board for the n-queens problem.
@@ -33,6 +34,24 @@ public class nQueenBoard {
         for(int i = 0; i < size; i++) {
         	this.queens[i] = oldBoard.queens[i];
         }
+    }
+    
+    /** 
+     * Overloaded method constructs a board with queens at random positions.
+     * Used for random restart
+     * 
+     * @param numQueens the dimension of the board
+     * @param b			overloads the method to indicate creating a random board
+     */
+    public nQueenBoard(int numQueens, boolean b) {
+        this.size = numQueens;
+        this.queens = new int[size];
+        Random rand = new Random();
+        
+        for(int q = 0; q < size; q++) {
+        	this.queens[q] = rand.nextInt(size);
+        }
+        
     }
     
     /**

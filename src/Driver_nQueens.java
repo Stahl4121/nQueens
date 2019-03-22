@@ -17,6 +17,7 @@ public class Driver_nQueens {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner s = new Scanner(System.in);				//Scanner to read in user input
 		DFSAlgorithms dfsAlgs = new DFSAlgorithms();	//Object from which to run the algorithms
+        lsrrAlgorithm lsrrAlg = new lsrrAlgorithm();	//Object from which to run LSRR
 		long startTime = 0, endTime = 0, duration;		//Variables to track elapsed time
 		int numNodes = 0;								//Tracks number of nodes
 
@@ -81,13 +82,14 @@ public class Driver_nQueens {
 
 						break;
 					case 4:
-                        nQueenBoard lsrrBoard = new nQueenBoard(nQueens);
+                        nQueenBoard lsrrBoard = new nQueenBoard(nQueens, true);
 
                         startTime = System.nanoTime();
-                        localRandRestartSearch lsrr = new localRandRestartSearch(lsrrBoard);
+                        lsrrAlg.LSRR(lsrrBoard);
                         endTime = System.nanoTime();
                         
-                        numNodes = lsrr.getNumNodes();
+                        numNodes = lsrrAlg.getNumNodes();
+                        System.out.println("Number of restarts: " + lsrrAlg.getNumRestarts());
 						
                         break;
 					default:
